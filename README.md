@@ -135,8 +135,10 @@ with explicit environment.
 
 ## Contributions
 
-Please open new GitHub [Issues](https://github.com/xpack-dev-tools/ms-spawn-issue/issues)
-with your findings when investigating this issue.
+All contributions to clarify this issue will be highly appreciated.
+
+Please use the GitHub [Issues](https://github.com/xpack-dev-tools/ms-spawn-issue/issues)
+to post your findings.
 
 Thank you,
 
