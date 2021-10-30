@@ -17,6 +17,15 @@ Clone this project to a folder of your choice:
 ```doscmd
 C:\Users\ilg>cd tmp
 C:\Users\ilg\tmp>git clone https://github.com/xpack-dev-tools/ms-spawn-issue.git
+Cloning into 'ms-spawn-issue'...
+remote: Enumerating objects: 19, done.
+remote: Counting objects: 100% (19/19), done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 19 (delta 2), reused 15 (delta 2), pack-reused 0
+Receiving objects: 100% (19/19), 172.08 KiB | 1.83 MiB/s, done.
+Resolving deltas: 100% (2/2), done.
+
+C:\Users\ilg\tmp>
 ```
 
 Change to the test folder and run the tests:
@@ -30,22 +39,22 @@ sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
 sh_env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-sh_env[43]='USERPROFILE=C:\Users\ilg'
-sh_env[44]='windir=C:\WINDOWS'
+sh_env[47]='USERPROFILE=C:\Users\ilg'
+sh_env[48]='windir=C:\WINDOWS'
 sh_argv[0]='spawn-env'
 sh_argv[1]='-c'
 sh_argv[2]='dump-env one two'
 sh_spawn 'dump-env.exe'...
 make: *** [makefile:3: all] Error -1073741819
 
-C:\Users\ilg\tmp\ms-spawn-issue>make null
+C:\Users\ilg\tmp\ms-spawn-issue\test>make null
 spawn-null -c "dump-env one two"
 sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
 sh_env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-sh_env[43]='USERPROFILE=C:\Users\ilg'
-sh_env[44]='windir=C:\WINDOWS'
+sh_env[47]='USERPROFILE=C:\Users\ilg'
+sh_env[48]='windir=C:\WINDOWS'
 sh_argv[0]='spawn-null'
 sh_argv[1]='-c'
 sh_argv[2]='dump-env one two'
@@ -54,8 +63,8 @@ sh_spawn 'dump-env.exe'...
 envp[0]='ALLUSERSPROFILE=C:\ProgramData'
 envp[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-envp[43]='USERPROFILE=C:\Users\ilg'
-envp[44]='windir=C:\WINDOWS'
+envp[47]='USERPROFILE=C:\Users\ilg'
+envp[48]='windir=C:\WINDOWS'
 argv[0]='dump-env'
 argv[1]='one'
 argv[2]='two'
@@ -75,13 +84,13 @@ Starting exactly the same command that failed from make, but this time
 from a terminal, works as expected:
 
 ```doscmd
-C:\Users\ilg\tmp\ms-spawn-issue>spawn-env -c "dump-env one two"
+C:\Users\ilg\tmp\ms-spawn-issue\test>spawn-env -c "dump-env one two"
 sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
 sh_env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-sh_env[38]='USERPROFILE=C:\Users\ilg'
-sh_env[39]='windir=C:\WINDOWS'
+sh_env[42]='USERPROFILE=C:\Users\ilg'
+sh_env[43]='windir=C:\WINDOWS'
 sh_argv[0]='spawn-env'
 sh_argv[1]='-c'
 sh_argv[2]='dump-env one two'
@@ -90,14 +99,14 @@ sh_spawn 'dump-env.exe'...
 envp[0]='ALLUSERSPROFILE=C:\ProgramData'
 envp[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-envp[38]='USERPROFILE=C:\Users\ilg'
-envp[39]='windir=C:\WINDOWS'
+envp[42]='USERPROFILE=C:\Users\ilg'
+envp[43]='windir=C:\WINDOWS'
 argv[0]='dump-env'
 argv[1]='one'
 argv[2]='two'
 sh_ret=0 errno=0
 
-C:\Users\ilg\tmp\ms-spawn-issue>
+C:\Users\ilg\tmp\ms-spawn-issue\test>
 ```
 
 ## Source files
