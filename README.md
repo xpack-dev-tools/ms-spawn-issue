@@ -28,12 +28,12 @@ Resolving deltas: 100% (2/2), done.
 C:\Users\ilg\tmp>
 ```
 
-Change to the test folder and run the tests:
+Change to the `\tests` folder and run the tests:
 
 ```doscmd
-C:\Users\ilg\tmp>cd ms-spawn-issue\test
+C:\Users\ilg\tmp>cd ms-spawn-issue\tests
 
-C:\Users\ilg\tmp\ms-spawn-issue\test>make
+C:\Users\ilg\tmp\ms-spawn-issue\tests>make
 spawn-env -c "dump-env one two"
 sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
@@ -47,7 +47,7 @@ sh_argv[2]='dump-env one two'
 sh_spawn 'dump-env.exe'...
 make: *** [makefile:3: all] Error -1073741819
 
-C:\Users\ilg\tmp\ms-spawn-issue\test>make null
+C:\Users\ilg\tmp\ms-spawn-issue\tests>make null
 spawn-null -c "dump-env one two"
 sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
@@ -73,7 +73,7 @@ sh_ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue>
 ```
 
-The `spawn-*.bin` binaries behave like a very simple shell used to
+The `spawn-*.exe` binaries behave like a very simple shell used to
 start a child process `dump-env.bin`.
 
 The tests show the environment before the spawn and in the child process.
@@ -84,7 +84,7 @@ Starting exactly the same command that failed from make, but this time
 from a terminal, works as expected:
 
 ```doscmd
-C:\Users\ilg\tmp\ms-spawn-issue\test>spawn-env -c "dump-env one two"
+C:\Users\ilg\tmp\ms-spawn-issue\tests>spawn-env -c "dump-env one two"
 sh_start
 sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
 sh_env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
@@ -106,12 +106,12 @@ argv[1]='one'
 argv[2]='two'
 sh_ret=0 errno=0
 
-C:\Users\ilg\tmp\ms-spawn-issue\test>
+C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
 ## Source files
 
-Both tests are based on the same source code (`spawn.c`), first compiled to
+Both tests are based on the same source code (`src/spawn.c`), first compiled to
 forward the environment to the child process, then compiled to pass a NULL
 pointer as environment, which is a shortcut to inherit the entire environment.
 
@@ -132,3 +132,11 @@ However, `make.exe` uses an elaborate mechanism to create sub-processes,
 and the process running the `spawn-*.exe` is somehow different, and this
 difference triggers the bug when this process tries to spawn a new process
 with explicit environment.
+
+## Contributions
+
+Please open new issues with your findings when investigating this issue.
+
+Thank you,
+
+Liviu
