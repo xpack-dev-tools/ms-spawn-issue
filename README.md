@@ -111,14 +111,17 @@ C:\Users\ilg\tmp\ms-spawn-issue\tests>
 
 ## Source files
 
-Both tests are based on the same source code (`projects/spawn/spawn.c`),
+Both tests are based on the same source code (`sources/spawn/spawn.c`),
 first compiled to
 forward the environment to the child process, then compiled to pass a NULL
 pointer as environment, which is a shortcut to inherit the entire environment.
 
 The `spawn-env.exe` and `spawn-null.exe` binaries were compiled with
-Visual Studio 2022 on a Windows 11 machine (the VS solution and
-the project files are included).
+Visual Studio 2022 on a Windows 11 machine, but with Platform Tools v142 and
+the Windows 10 SDK, so the build should also be possible with Visual
+Studio 2019 on Windows 10.
+
+The VS solution (`sources/projects.sln`) and the project files are included.
 
 ## Conclusion
 
