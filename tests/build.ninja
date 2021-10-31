@@ -1,0 +1,11 @@
+rule spawn-env
+    command = spawn-env -c "dump-env one two"
+
+rule spawn-null
+    command = spawn-null -c "dump-env three four"
+
+build env: spawn-env
+
+build null: spawn-null
+
+default env

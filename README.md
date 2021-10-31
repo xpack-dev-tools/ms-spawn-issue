@@ -12,6 +12,8 @@ to use the legacy MSVCRT API.
 
 ## How to test
 
+### make
+
 Clone this project to a folder of your choice:
 
 ```doscmd
@@ -289,29 +291,72 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-sh_start
-sh_env[0]='ALLUSERSPROFILE=C:\ProgramData'
-sh_env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
-...
-sh_env[42]='USERPROFILE=C:\Users\ilg'
-sh_env[43]='windir=C:\WINDOWS'
-sh_argv[0]='spawn-env'
-sh_argv[1]='-c'
-sh_argv[2]='dump-env one two'
-sh_spawn 'dump-env.exe'...
+### ninja
 
+A similar test can be performed with the Ninja Build system.
+
+The commands are similar:
+
+```doscmd
+C:\Users\ilg\tmp\ms-spawn-issue\tests>ninja
+[1/1] spawn-env -c "dump-env one two"
+
+Dump process environment:
 envp[0]='ALLUSERSPROFILE=C:\ProgramData'
 envp[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
 ...
-envp[42]='USERPROFILE=C:\Users\ilg'
-envp[43]='windir=C:\WINDOWS'
+envp[35]='USERPROFILE=C:\Users\ilg'
+envp[36]='windir=C:\Windows'
 argv[0]='dump-env'
 argv[1]='one'
 argv[2]='two'
-sh_ret=0 errno=0
+
+Spawn test:
+spawn env[0]='ALLUSERSPROFILE=C:\ProgramData'
+spawn env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
+...
+spawn env[35]='USERPROFILE=C:\Users\ilg'
+spawn env[36]='windir=C:\Windows'
+spawn argv[0]='spawn-env'
+spawn argv[1]='-c'
+spawn argv[2]='dump-env one two'
+spawn command 'dump-env.exe'...
+spawn ret=0 errno=0
+
+C:\Users\ilg\tmp\ms-spawn-issue\tests>ninja null
+[1/1] spawn-null -c "dump-env three four"
+
+Dump process environment:
+envp[0]='ALLUSERSPROFILE=C:\ProgramData'
+envp[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
+...
+envp[35]='USERPROFILE=C:\Users\ilg'
+envp[36]='windir=C:\Windows'
+argv[0]='dump-env'
+argv[1]='three'
+argv[2]='four'
+
+Spawn test:
+spawn env[0]='ALLUSERSPROFILE=C:\ProgramData'
+spawn env[1]='APPDATA=C:\Users\ilg\AppData\Roaming'
+...
+spawn env[35]='USERPROFILE=C:\Users\ilg'
+spawn env[36]='windir=C:\Windows'
+spawn argv[0]='spawn-null'
+spawn argv[1]='-c'
+spawn argv[2]='dump-env three four'
+spawn command 'dump-env.exe'...
+spawn ret=0 errno=0
 
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
+
+As it can be seen, both tests pass, so the problem is specific to `make.exe`.
+
+Note: At first sight, the output seems out of order, but in fact it
+is even more ordered than for `make.exe`, since it shows the output
+in dependency order, after each command completes.
+
 
 ## Source files
 
@@ -337,6 +382,21 @@ However, `make.exe` uses an elaborate mechanism to create sub-processes,
 and the process running the `spawn-*.exe` is somehow different, and this
 difference triggers the bug when this process tries to spawn a new process
 with explicit environment.
+
+## Suggestions
+
+The issue is quite tricky, and it involves three parties, GNU make,
+BusyBox and Microsoft. At any point, each party may try to shift the
+blame to the other, but in fact all three should improve their code:
+
+- **GNU make** should rewrite the code which creates sub-processes to run
+  with the current Windows and BusyBox; Ninja Build can be a source of
+  inspiration, since their code seems ok
+- **BusyBox** should not rely on the unreliable `spawnve()` available in
+  the new Windows releases, and reimplement it with a code that is
+  functional with the current make and Windows
+- **Microsoft** should fix their `spawnve()` code and prevent it from
+  crashing when BusyBox is invoked from `make`
 
 ## Contributions
 
