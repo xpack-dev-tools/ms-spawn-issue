@@ -111,16 +111,14 @@ C:\Users\ilg\tmp\ms-spawn-issue\tests>
 
 ## Source files
 
-Both tests are based on the same source code (`src/spawn.c`), first compiled to
+Both tests are based on the same source code (`projects/spawn/spawn.c`),
+first compiled to
 forward the environment to the child process, then compiled to pass a NULL
 pointer as environment, which is a shortcut to inherit the entire environment.
 
 The `spawn-env.exe` and `spawn-null.exe` binaries were compiled with
-Visual Studio on a Windows 10 machine.
-
-The code triggers several warnings; to disable them please read:
-
-- <https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-3-c4996>
+Visual Studio 2022 on a Windows 11 machine (the VS solution and
+the project files are included).
 
 ## Conclusion
 
@@ -137,7 +135,8 @@ with explicit environment.
 
 All contributions to clarify this issue will be highly appreciated.
 
-Please use the GitHub [Issues](https://github.com/xpack-dev-tools/ms-spawn-issue/issues)
+Please use the GitHub
+[Issues](https://github.com/xpack-dev-tools/ms-spawn-issue/issues)
 to post your findings.
 
 Thank you,
