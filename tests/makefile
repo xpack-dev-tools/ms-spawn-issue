@@ -3,5 +3,5 @@ all:
 	spawn-env -c "dump-env one two"
 
 null:
-	spawn-null -c "dump-env one two"
+	spawn-null -c "dump-env three four"
 
