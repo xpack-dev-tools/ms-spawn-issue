@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spawn", "spawn\spawn.vcxproj", "{D6774571-68CB-4CCD-AEC1-333506DBE9FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dump-env", "dump-env\dump-env.vcxproj", "{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		dump-env-debug|x64 = dump-env-debug|x64
+		dump-env-debug|x86 = dump-env-debug|x86
+		dump-env-release|x64 = dump-env-release|x64
+		dump-env-release|x86 = dump-env-release|x86
+		spawn-env-debug|x64 = spawn-env-debug|x64
+		spawn-env-debug|x86 = spawn-env-debug|x86
+		spawn-env-release|x64 = spawn-env-release|x64
+		spawn-env-release|x86 = spawn-env-release|x86
+		spawn-null-debug|x64 = spawn-null-debug|x64
+		spawn-null-debug|x86 = spawn-null-debug|x86
+		spawn-null-release|x64 = spawn-null-release|x64
+		spawn-null-release|x86 = spawn-null-release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-debug|x64.ActiveCfg = Debug-null|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-debug|x86.ActiveCfg = Debug-null|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-debug|x86.Build.0 = Debug-null|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-release|x64.ActiveCfg = Debug-env|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-release|x86.ActiveCfg = Release-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.dump-env-release|x86.Build.0 = Release-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-debug|x64.ActiveCfg = Debug-env|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-debug|x64.Build.0 = Debug-env|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-debug|x86.ActiveCfg = Debug-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-debug|x86.Build.0 = Debug-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-release|x64.ActiveCfg = Release-env|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-release|x64.Build.0 = Release-env|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-release|x86.ActiveCfg = Release-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-env-release|x86.Build.0 = Release-env|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-debug|x64.ActiveCfg = Debug-null|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-debug|x64.Build.0 = Debug-null|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-debug|x86.ActiveCfg = Debug-null|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-debug|x86.Build.0 = Debug-null|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-release|x64.ActiveCfg = Release-null|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-release|x64.Build.0 = Release-null|x64
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-release|x86.ActiveCfg = Release-null|Win32
+		{D6774571-68CB-4CCD-AEC1-333506DBE9FD}.spawn-null-release|x86.Build.0 = Release-null|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-debug|x64.ActiveCfg = Debug|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-debug|x64.Build.0 = Debug|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-debug|x86.ActiveCfg = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-debug|x86.Build.0 = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-release|x64.ActiveCfg = Release|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-release|x64.Build.0 = Release|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-release|x86.ActiveCfg = Release|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.dump-env-release|x86.Build.0 = Release|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-debug|x64.ActiveCfg = Debug|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-debug|x86.ActiveCfg = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-debug|x86.Build.0 = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-release|x64.ActiveCfg = Release|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-release|x86.ActiveCfg = Release|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-env-release|x86.Build.0 = Release|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-debug|x64.ActiveCfg = Debug|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-debug|x86.ActiveCfg = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-debug|x86.Build.0 = Debug|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-release|x64.ActiveCfg = Release|x64
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-release|x86.ActiveCfg = Release|Win32
+		{D71678F7-2BB7-42BC-B7FA-B4BEDC8D7C39}.spawn-null-release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52802F90-01E5-4204-99EE-11F6470B273D}
+	EndGlobalSection
+EndGlobal
