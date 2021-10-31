@@ -30,16 +30,16 @@ int main(int argc, char *argv[], char *envp[])
   char **p;
   int i;
 
-  printf("sh_start\n");
+  printf("\nSpawn test:\n");
 
   for (i = 0, p = envp; *p; p++, i++)
   {
-    printf("sh_env[%d]='%s'\n", i, *p);
+    printf("spawn env[%d]='%s'\n", i, *p);
   }
 
   for (i = 0, p = argv; *p; p++, i++)
   {
-    printf("sh_argv[%d]='%s'\n", i, *p);
+    printf("spawn argv[%d]='%s'\n", i, *p);
   }
 
   if (argc < 2 || strcmp(argv[1], "-c") != 0)
@@ -51,7 +51,7 @@ int main(int argc, char *argv[], char *envp[])
   char **sub_argv = split_argv(argv[2]);
   char *command = is_exe(sub_argv[0]) ? sub_argv[0] : append_exe(sub_argv[0]);
 
-  printf("sh_spawn '%s'...\n", command);
+  printf("spawn command '%s'...\n", command);
 
   int ret;
   errno = 0;
@@ -61,7 +61,7 @@ int main(int argc, char *argv[], char *envp[])
   ret = _spawnvpe(0, command, sub_argv, envp);
 #endif
 
-  printf("sh_ret=%d errno=%d\n", ret, errno);
+  printf("spawn ret=%d errno=%d\n", ret, errno);
 
   // Don't bother to free.
   return ret;
