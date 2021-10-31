@@ -20,6 +20,8 @@ int main(int argc, char *argv[], char *envp[])
   char **p;
   int i;
 
+  printf("\nDump process environment:\n");
+  
   for (i = 0, p = envp; *p; p++, i++)
   {
     printf("envp[%d]='%s'\n", i, *p);
