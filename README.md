@@ -1,36 +1,99 @@
-# ms-spawn-issue
+# Microsoft `spawnve()` issue
+
+## The problem
+
+It seems that the implementation of `spawnve()` in the modern Microsoft
+UCRT API has a problem, and in certain conditions, calling the `spawn*e()`
+functions with a non-NULL environment, crashes with _Error -1073741819_
+which is 0xC0000005, or ERROR_ACCESS_DENIED.
+
+These conditions are met by **GNU make**, and any program invoked
+by `make.exe` that tries to create sub-processes with spawn*e()`, fails.
+
+Since `spawnve()` is also called by BusyBox in its `sh.exe` implementation,
+this is a major issue, because it affects the most common build tools.
+
+## History
+
+The problem was detected when attempting to rebuild the
+[xPack Windows Build Tools](https://github.com/xpack-dev-tools/windows-build-tools-xpack)
+with a new build environment (XBB v3.3), which
+upgraded the mingw-gcc to use the UCRT API
+([#19](https://github.com/xpack-dev-tools/windows-build-tools-xpack/issues/19)).
+
+UCRT is the Microsoft
+[Universal C Runtime](https://www.microsoft.com/en-us/download/details.aspx?id=48234),
+and is available since Windows 7 SP1 from 2011.
+
+The problem did not occur in the past, because `sh.exe` was built
+to use the legacy MSVCRT API, which is not affected.
+
+## Project overview
 
 This project provides several test programs to diagnose
-the error reported by simple shells like `sh.exe` from BusyBox,
-when invoked from GNU `make.exe`.
+this problem.
 
-The error occurs when `sh.exe` is built to use the Microsoft
-Universal C Runtime, available since Windows 7 SP1 from 2011.
+Some programs are avalable in binary form (`make.exe` and `ninja.exe`),
+and some both as source code and in binary form, compiled with Microsoft
+Visual Studio.
 
-The error did not occur in the past when `sh.exe` was built
-to use the legacy MSVCRT API.
+The `spawn-*.exe` binaries behave like a very simple shell used to
+start a child process `dump-env.exe`.
+
+- `spawn-env.exe` creates a new sub-process and passes the unmodified
+environment, as received my `main()`.
+- `spawn-null.exe` is identical to `spawn-env.exe`, except that it passes
+a NULL pointer for the environment, which is a shortcut for inheriting
+the full environment from the parent process.
+
+The tests show the environment before the spawn and in the child process.
 
 ## How to test
 
-### make
+### Prerequisites
 
-Clone this project to a folder of your choice:
+A Windows 10 system or later.
+
+The test can be downloaded either as a ZIP archive or as a full Git repository.
+
+To use the Git repository, the
+[Git for Windows](https://git-scm.com/download/win) package
+is needed.
+
+### Download/clone the project
+
+The latest version of this project can be downloaded as a ZIP archive from:
+
+- <https://github.com/xpack-dev-tools/ms-spawn-issue/archive/refs/heads/master.zip>
+
+and can be unpacked in any folder, for example in `tmp`.
+
+The full Git repository can be cloned with:
 
 ```doscmd
+C:\Users\ilg>mkdir tmp
 C:\Users\ilg>cd tmp
 C:\Users\ilg\tmp>git clone https://github.com/xpack-dev-tools/ms-spawn-issue.git
 Cloning into 'ms-spawn-issue'...
-remote: Enumerating objects: 19, done.
-remote: Counting objects: 100% (19/19), done.
-remote: Compressing objects: 100% (16/16), done.
-remote: Total 19 (delta 2), reused 15 (delta 2), pack-reused 0
-Receiving objects: 100% (19/19), 172.08 KiB | 1.83 MiB/s, done.
-Resolving deltas: 100% (2/2), done.
+remote: Enumerating objects: 114, done.
+remote: Counting objects: 100% (114/114), done.
+remote: Compressing objects: 100% (74/74), done.
+Receiving objects:  85% (97/114)used 92 (delta 36), pack-reused 0R
+Receiving objects: 100% (114/114), 468.93 KiB | 3.47 MiB/s, done.
+Resolving deltas: 100% (54/54), done.
 
 C:\Users\ilg\tmp>
 ```
 
-Change to the `\tests` folder and run the tests:
+### PowerShell
+
+The following tests were executed in a `cmd.exe` terminal, but behave
+the same in a PowerShell terminal. The only difference is that the
+tests should be started with a relative path, like `.\make`.
+
+### make
+
+Change to the `ms-spawn-issue\tests` folder and run the tests:
 
 ```doscmd
 C:\Users\ilg\tmp>cd ms-spawn-issue\tests
@@ -189,12 +252,9 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-The `spawn-*.exe` binaries behave like a very simple shell used to
-start a child process `dump-env.bin`.
-
-The tests show the environment before the spawn and in the child process.
-
 The first test fails exactly at the `_spawnvpe()` call.
+
+The second test passes.
 
 Starting exactly the same command that failed from make, but this time
 from a terminal, works as expected:
@@ -293,7 +353,8 @@ C:\Users\ilg\tmp\ms-spawn-issue\tests>
 
 ### ninja
 
-A similar test can be performed with the Ninja Build system.
+A similar test can be performed with the Ninja Build system instead of
+GNU make.
 
 The commands are similar:
 
@@ -351,12 +412,12 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-As it can be seen, both tests pass, so the problem is specific to `make.exe`.
+As it can be seen, both tests pass, so the problem is specific to `make.exe`
+and does not affect `ninja.exe`.
 
 Note: At first sight, the output seems out of order, but in fact it
 is even more ordered than for `make.exe`, since it shows the output
 in dependency order, after each command completes.
-
 
 ## Source files
 
@@ -379,7 +440,7 @@ they changed the implementation and introduced a subtle bug that does not
 show in the common use case.
 
 However, `make.exe` uses an elaborate mechanism to create sub-processes,
-and the process running the `spawn-*.exe` is somehow different, and this
+and the process running the `spawn-*.exe` is somehow different; this
 difference triggers the bug when this process tries to spawn a new process
 with explicit environment.
 
