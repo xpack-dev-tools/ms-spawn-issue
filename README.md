@@ -30,8 +30,9 @@ to use the legacy MSVCRT API, which is not affected.
 
 ## Project overview
 
-This project provides several test programs to diagnose
-this problem.
+This open source project provides several test programs to diagnose
+this problem. It is available from GitHub as
+[xpack-dev-tools/ms-spawn-issue](https://github.com/xpack-dev-tools/ms-spawn-issue).
 
 Some programs are avalable in binary form (`make.exe` and `ninja.exe`),
 and some both as source code and in binary form, compiled with Microsoft
