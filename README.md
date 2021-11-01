@@ -8,7 +8,7 @@ functions with a non-NULL environment, crashes with _Error -1073741819_
 which is 0xC0000005, or ERROR_ACCESS_DENIED.
 
 These conditions are met by **GNU make**, and any program invoked
-by `make.exe` that tries to create sub-processes with spawn*e()`, fails.
+by `make.exe` that tries to create sub-processes with `spawn*e()`, fails.
 
 Since `spawnve()` is also called by BusyBox in its `sh.exe` implementation,
 this is a major issue, because it affects the most common build tools.
