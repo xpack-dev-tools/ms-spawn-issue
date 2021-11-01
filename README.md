@@ -66,7 +66,7 @@ The latest version of this project can be downloaded as a ZIP archive from:
 
 - <https://github.com/xpack-dev-tools/ms-spawn-issue/archive/refs/heads/master.zip>
 
-and can be unpacked in any folder, for example in `tmp`.
+and can be unpacked in any folder, for example in `tmp\ms-spawn-issue`.
 
 The full Git repository can be cloned with:
 
