@@ -55,11 +55,10 @@ The tests show the environment before the spawn and in the child process.
 
 A Windows 10 system or later.
 
-The test can be downloaded either as a ZIP archive or as a full Git repository.
+The tests can be downloaded either as a ZIP archive or as a full Git repository.
 
-To use the Git repository, the
-[Git for Windows](https://git-scm.com/download/win) package
-is needed.
+To use the Git repository, a Git client is needed, for example
+[Git for Windows](https://git-scm.com/download/win).
 
 ### Download/clone the project
 
@@ -92,7 +91,7 @@ The following tests were executed in a `cmd.exe` terminal, but behave
 the same in a PowerShell terminal. The only difference is that the
 tests should be started with a relative path, like `.\make`.
 
-### make
+### `make` test
 
 Change to the `ms-spawn-issue\tests` folder and run the tests:
 
@@ -352,7 +351,7 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-### ninja
+### `ninja` test
 
 A similar test can be performed with the Ninja Build system instead of
 GNU make.
