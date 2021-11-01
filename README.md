@@ -462,6 +462,13 @@ blame to the other, but in fact all three should improve their code:
 - **Microsoft** should fix their `spawnve()` code and prevent it from
   crashing when BusyBox is invoked from `make`
 
+## Bug reports
+
+The following tickets were opened:
+
+- <https://github.com/rmyorston/busybox-w32/issues/234>
+- <https://savannah.gnu.org/bugs/index.php?61409>
+
 ## Contributions
 
 All contributions to clarify this issue will be highly appreciated.
