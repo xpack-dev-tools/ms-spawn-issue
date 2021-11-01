@@ -7,7 +7,7 @@ UCRT API has a problem, and in certain conditions, calling the `spawn*e()`
 functions with a non-NULL environment, crashes with _Error -1073741819_
 which is 0xC0000005, or ERROR_ACCESS_DENIED.
 
-These conditions are met by **GNU make**, and some program invoked
+These conditions are met by **GNU make**, and some programs invoked
 by `make.exe` that try to create sub-processes with `spawn*e()`, fail.
 
 Since `spawnve()` is also called by BusyBox in its `sh.exe` implementation,
