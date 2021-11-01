@@ -11,7 +11,7 @@ These conditions are met by **GNU make**, and any program invoked
 by `make.exe` that tries to create sub-processes with `spawn*e()`, fails.
 
 Since `spawnve()` is also called by BusyBox in its `sh.exe` implementation,
-this is a major issue, because it affects the most common build tools.
+this is a major issue, because it affects most common build tools.
 
 ## History
 
