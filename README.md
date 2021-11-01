@@ -17,8 +17,8 @@ this is a major issue, because it affects most common build tools.
 
 The problem was detected when attempting to rebuild the
 [xPack Windows Build Tools](https://github.com/xpack-dev-tools/windows-build-tools-xpack)
-with a new build environment (XBB v3.3), which
-upgraded the mingw-gcc to use the UCRT API
+package with a new build environment (xPack Build Box - XBB v3.3), which
+upgraded the mingw-gcc compiler to use the UCRT API
 ([#19](https://github.com/xpack-dev-tools/windows-build-tools-xpack/issues/19)).
 
 UCRT is the Microsoft
@@ -42,7 +42,7 @@ The `spawn-*.exe` binaries behave like a very simple shell used to
 start a child process `dump-env.exe`.
 
 - `spawn-env.exe` creates a new sub-process and passes the unmodified
-environment, as received my `main()`.
+environment, as received by `main()`.
 - `spawn-null.exe` is identical to `spawn-env.exe`, except that it passes
 a NULL pointer for the environment, which is a shortcut for inheriting
 the full environment from the parent process.
@@ -54,20 +54,23 @@ and in the child process.
 
 ### Prerequisites
 
-A Windows 10 system or later.
-
-The tests can be downloaded either as a ZIP archive or as a full Git repository.
-
-To use the Git repository, a Git client is needed, for example
+- a Windows 10 system or later.
+- when using the Git repository, a Git client is needed, for example
 [Git for Windows](https://git-scm.com/download/win).
 
 ### Download/clone the project
+
+The tests can be downloaded either as a ZIP archive or as a full Git repository.
+
+#### Download the ZIP archive
 
 The latest version of this project can be downloaded as a ZIP archive from:
 
 - <https://github.com/xpack-dev-tools/ms-spawn-issue/archive/refs/heads/master.zip>
 
-and can be unpacked in any folder, for example in `tmp\ms-spawn-issue`.
+It can be unpacked in any folder, for example in `tmp\ms-spawn-issue`.
+
+#### Clone the full Git repository
 
 The full Git repository can be cloned with:
 
@@ -92,7 +95,7 @@ The following tests were executed in a `cmd.exe` terminal, but behave
 the same in a PowerShell terminal. The only difference is that the
 tests should be started with a relative path, like `.\make`.
 
-### `make` test
+### Run the `make` test
 
 Change to the `ms-spawn-issue\tests` folder and run the tests:
 
@@ -151,6 +154,13 @@ spawn argv[2]='dump-env one two'
 spawn command 'dump-env.exe'...
 make: *** [makefile:3: all] Error -1073741819
 
+C:\Users\ilg\tmp\ms-spawn-issue\tests>
+```
+
+This test, which passes the environment received by `main()` fails
+exactly inside the `_spawnvpe()` call.
+
+```doscon
 C:\Users\ilg\tmp\ms-spawn-issue\tests>make null
 spawn-null -c "dump-env three four"
 
@@ -253,12 +263,10 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-The first test fails exactly at the `_spawnvpe()` call.
+This test, which passes a NULL pointer as environment, passes.
 
-The second test passes.
-
-Starting exactly the same command that failed from make, but this time
-from a terminal, works as expected:
+Starting exactly the same command that failed when invoked from make,
+but this time from a terminal, works as expected:
 
 ```doscmd
 C:\Users\ilg\tmp\ms-spawn-issue\tests>spawn-env -c "dump-env one two"
@@ -352,7 +360,7 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-### `ninja` test
+### Run the `ninja` test
 
 A similar test can be performed with the Ninja Build system instead of
 GNU make.
@@ -425,7 +433,7 @@ in dependency order, after each command completes.
 ## Source files
 
 Both tests are based on the same source code (`sources/spawn/spawn.c`),
-first compiled to
+the first compiled to
 forward the environment to the child process, then compiled to pass a NULL
 pointer as environment, which is a shortcut to inherit the entire environment.
 
@@ -442,10 +450,10 @@ The current theory is that when Microsoft migrated from MSVCRT to UCRT
 they changed the implementation and introduced a subtle bug that does not
 show in the common use case.
 
-However, `make.exe` uses an elaborate mechanism to create sub-processes,
-and the process running the `spawn-*.exe` is somehow different; this
+However, `make.exe` uses an elaborate mechanism to create sub-processes, and
+the context of the process running the `spawn-*.exe` is somehow different; this
 difference triggers the bug when this process tries to spawn a new process
-with explicit environment.
+with an explicit environment.
 
 ## Suggestions
 
