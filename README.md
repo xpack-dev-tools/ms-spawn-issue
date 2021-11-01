@@ -412,8 +412,10 @@ spawn ret=0 errno=0
 C:\Users\ilg\tmp\ms-spawn-issue\tests>
 ```
 
-As it can be seen, both tests pass, so the problem is specific to `make.exe`
-and does not affect `ninja.exe`.
+As it can be seen, both tests pass, so the problem is specific to `make.exe`;
+the method used by Ninja to
+create sub-processes is probably different and does not trigger the bug,
+so projects using `ninja.exe` are not affected.
 
 Note: At first sight, the output seems out of order, but in fact it
 is even more ordered than for `make.exe`, since it shows the output
