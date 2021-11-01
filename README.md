@@ -47,7 +47,8 @@ environment, as received my `main()`.
 a NULL pointer for the environment, which is a shortcut for inheriting
 the full environment from the parent process.
 
-The tests show the environment before the spawn and in the child process.
+The tests show the environment before the `spawn()` call
+and in the child process.
 
 ## How to test
 
